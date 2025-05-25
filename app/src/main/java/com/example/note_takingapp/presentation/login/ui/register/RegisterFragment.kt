@@ -1,4 +1,4 @@
-package com.example.note_takingapp.presentation.login.ui.forgetPassword
+package com.example.note_takingapp.presentation.login.ui.register
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,19 +10,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.note_takingapp.R
-import com.example.note_takingapp.databinding.FragmentForgetPasswordBinding
+import com.example.note_takingapp.databinding.FragmentLoginBinding
 import com.example.note_takingapp.databinding.FragmentRegisterBinding
 import com.example.note_takingapp.di.App
 import com.example.note_takingapp.presentation.ViewModelFactory
 import com.example.note_takingapp.presentation.login.state.AuthState
-import com.example.note_takingapp.presentation.login.ui.viewModels.ForgetPasswordViewModel
+import com.example.note_takingapp.presentation.login.ui.viewModels.LoginViewModel
 import com.example.note_takingapp.presentation.login.ui.viewModels.RegisterViewModel
 import javax.inject.Inject
 
 
-class ForgetPasswordFragment : Fragment() {
+class RegisterFragment : Fragment() {
 
-    private var _binding: FragmentForgetPasswordBinding? = null
+    private var _binding: FragmentRegisterBinding? = null
 
     private val binding get() = _binding!!
 
@@ -34,14 +34,16 @@ class ForgetPasswordFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel by lazy {
-        ViewModelProvider(this,viewModelFactory)[ForgetPasswordViewModel::class.java]
+        ViewModelProvider(this,viewModelFactory)[RegisterViewModel::class.java]
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val usernameEditText = binding.username
-        val loginButton = binding.forgetPasswordButton
+        val passwordEditText = binding.password
+        val loginButton = binding.register
         val loadingProgressBar = binding.loading
 
 
@@ -60,6 +62,8 @@ class ForgetPasswordFragment : Fragment() {
                         loadingProgressBar.visibility = View.GONE
                         loginButton.isEnabled = true
                         Toast.makeText(context, "Welcome, ${state.user.email}", Toast.LENGTH_SHORT).show()
+                        // Навигация на следующий экран после успешного входа
+
                     }
                     is AuthState.Error -> {
                         loadingProgressBar.visibility = View.GONE
@@ -70,12 +74,13 @@ class ForgetPasswordFragment : Fragment() {
             }
         }
 
-        binding.forgetPasswordButton.setOnClickListener {
-            viewModel.sendPasswordResetEmail(usernameEditText.text.toString())
+        binding.register.setOnClickListener {
+            viewModel.register(usernameEditText.text.toString(),passwordEditText.text.toString())
         }
 
-
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
@@ -86,7 +91,7 @@ class ForgetPasswordFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentForgetPasswordBinding.inflate(inflater, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -94,7 +99,6 @@ class ForgetPasswordFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 
 
 }

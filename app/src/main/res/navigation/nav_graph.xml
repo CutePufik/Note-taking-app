@@ -10,7 +10,7 @@
         android:name="com.example.note_takingapp.presentation.login.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
-        
+
         <action
             android:id="@+id/action_loginFragment_to_forgetPasswordFragment"
             app:destination="@id/forgetPasswordFragment" />
@@ -33,9 +33,9 @@
         tools:layout="@layout/fragment_forget_password" />
     <fragment
         android:id="@+id/logUpFragment"
-        android:name="com.example.note_takingapp.presentation.login.ui.logup.LogUpFragment"
+        android:name="com.example.note_takingapp.presentation.login.ui.register.RegisterFragment"
         android:label="fragment_log_up"
-        tools:layout="@layout/fragment_log_up" />
+        tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.note_takingapp.presentation.MainFragment"
