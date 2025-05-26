@@ -2,7 +2,7 @@ package com.example.note_takingapp.presentation.login.ui.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.note_takingapp.domain.Auth.use_case.LoginUseCase
+import com.example.note_takingapp.domain.Auth.usecase.LoginUseCase
 import com.example.note_takingapp.presentation.login.state.AuthState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

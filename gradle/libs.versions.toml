@@ -15,9 +15,17 @@ annotation = "1.6.0"
 lifecycleLivedataKtx = "2.6.1"
 lifecycleViewmodelKtx = "2.6.1"
 dagger = "2.48"
-mediationTestSuite = "3.0.0"  # Актуальная версия Dagger
+
 
 [libraries]
+# Mockito
+mockito-core = { module = "org.mockito:mockito-inline", version = "5.2.0" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version = "4.1.0" }
+# Для тестирования корутин
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version = "1.7.3" }
+# Для тестирования Flow
+turbine = { module = "app.cash.turbine:turbine", version = "1.0.0" }
+
 
 dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
 dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }

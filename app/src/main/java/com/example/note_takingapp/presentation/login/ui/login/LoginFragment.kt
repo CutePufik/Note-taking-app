@@ -1,30 +1,23 @@
 package com.example.note_takingapp.presentation.login.ui.login
 
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.note_takingapp.databinding.FragmentLoginBinding
-
 import com.example.note_takingapp.R
+import com.example.note_takingapp.databinding.FragmentLoginBinding
 import com.example.note_takingapp.di.App
 import com.example.note_takingapp.presentation.ViewModelFactory
 import com.example.note_takingapp.presentation.login.state.AuthState
 import com.example.note_takingapp.presentation.login.ui.viewModels.LoginViewModel
 import javax.inject.Inject
-import kotlin.getValue
 
 class LoginFragment : Fragment() {
 

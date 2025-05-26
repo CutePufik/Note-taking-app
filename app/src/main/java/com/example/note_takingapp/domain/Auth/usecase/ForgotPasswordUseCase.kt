@@ -1,4 +1,4 @@
-package com.example.note_takingapp.domain.Auth.use_case
+package com.example.note_takingapp.domain.Auth.usecase
 
 import com.example.note_takingapp.domain.Auth.repository.AuthRepository
 import javax.inject.Inject
