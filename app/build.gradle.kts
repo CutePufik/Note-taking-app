@@ -48,6 +48,7 @@ dependencies {
 
     // Dagger 2
     implementation(libs.dagger)
+    implementation(libs.firebase.firestore.ktx)
     kapt(libs.dagger.compiler)
     implementation(libs.dagger.android)
     implementation(libs.dagger.android.support)

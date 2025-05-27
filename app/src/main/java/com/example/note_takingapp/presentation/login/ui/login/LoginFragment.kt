@@ -77,7 +77,7 @@ class LoginFragment : Fragment() {
                         loginButton.isEnabled = true
                         Toast.makeText(context, "Welcome, ${state.user.email}", Toast.LENGTH_SHORT).show()
                         // Навигация на следующий экран после успешного входа
-                        findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+                        findNavController().navigate(R.id.action_loginFragment_to_noteListFragment)
                     }
                     is AuthState.Error -> {
                         loadingProgressBar.visibility = View.GONE
