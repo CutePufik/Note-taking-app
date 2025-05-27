@@ -57,7 +57,7 @@ class LoginFragment : Fragment() {
 
         val usernameEditText = binding.username
         val passwordEditText = binding.password
-        val loginButton = binding.login
+        val loginButton = binding.register
         val loadingProgressBar = binding.loading
 
 
@@ -88,7 +88,7 @@ class LoginFragment : Fragment() {
             }
         }
 
-        binding.login.setOnClickListener {
+        binding.register.setOnClickListener {
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
             viewModel.login(username, password)

@@ -42,27 +42,23 @@ class ForgetPasswordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val usernameEditText = binding.username
         val loginButton = binding.forgetPasswordButton
-        val loadingProgressBar = binding.loading
+
 
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.authState.collect { state ->
                 when(state) {
                     is AuthState.Idle -> {
-                        loadingProgressBar.visibility = View.GONE
                         loginButton.isEnabled = true
                     }
                     is AuthState.Loading -> {
-                        loadingProgressBar.visibility = View.VISIBLE
                         loginButton.isEnabled = false
                     }
                     is AuthState.Success -> {
-                        loadingProgressBar.visibility = View.GONE
                         loginButton.isEnabled = true
                         Toast.makeText(context, "Welcome, ${state.user.email}", Toast.LENGTH_SHORT).show()
                     }
                     is AuthState.Error -> {
-                        loadingProgressBar.visibility = View.GONE
                         loginButton.isEnabled = true
                         Toast.makeText(context, "Error: ${state.message}", Toast.LENGTH_SHORT).show()
                     }
