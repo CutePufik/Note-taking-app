@@ -11,7 +11,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.note_takingapp.R
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.example.note_takingapp.databinding.FragmentNoteListBinding
 import com.example.note_takingapp.di.App
@@ -40,6 +42,19 @@ class NoteListFragment : Fragment() {
         ViewModelProvider(this,viewModelFactory)[NoteListViewModel::class.java]
     }
 
+    val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean = false
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.adapterPosition
+            val note = noteAdapter.currentList[position]
+            noteAdapter.onItemSwiped?.invoke(note)
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +67,7 @@ class NoteListFragment : Fragment() {
         setupRecyclerView()
         observeNotes()
         setupClickListeners()
+        ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(binding.rvNotes)
 
         binding.fabAddNote.setOnClickListener {
             findNavController().navigate(R.id.action_noteListFragment_to_addNoteFragment)
@@ -63,6 +79,10 @@ class NoteListFragment : Fragment() {
             onItemClick = { note ->
                 // Обработка клика по заметке (например, открыть детали)
             }
+            onItemSwiped = { note ->
+                viewModel.deleteNote(note.id.toString())
+            }
+
         }
 
 
@@ -82,14 +102,15 @@ class NoteListFragment : Fragment() {
         }
 
 
-//        viewModel.notes.observe(viewLifecycleOwner) { notes ->
-//            noteAdapter.submitList(notes)
-//        }
     }
 
     private fun setupClickListeners() {
         binding.fabAddNote.setOnClickListener {
             // Открыть экран создания заметки
+        }
+
+        noteAdapter.onItemSwiped = { note ->
+            viewModel.deleteNote(note.id.toString()) 
         }
     }
 

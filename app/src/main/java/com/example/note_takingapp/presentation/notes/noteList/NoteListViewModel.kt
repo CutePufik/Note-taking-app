@@ -3,6 +3,7 @@ package com.example.note_takingapp.presentation.notes.noteList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.note_takingapp.domain.Notes.model.Note
+import com.example.note_takingapp.domain.Notes.usecase.DeleteNoteUseCase
 import com.example.note_takingapp.domain.Notes.usecase.GetAllNotesUseCase
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -10,7 +11,8 @@ import javax.inject.Inject
 
 
 class NoteListViewModel @Inject constructor(
-    private val getAllNotesUseCase: GetAllNotesUseCase
+    private val getAllNotesUseCase: GetAllNotesUseCase,
+    private val deleteNoteUseCase: DeleteNoteUseCase
 ) : ViewModel() {
 
     private val _notes = MutableStateFlow<List<Note>>(emptyList())
@@ -40,4 +42,11 @@ class NoteListViewModel @Inject constructor(
                 }
         }
     }
+    fun deleteNote(noteId: String) {
+        viewModelScope.launch {
+            deleteNoteUseCase(noteId)
+            loadNotes()
+        }
+    }
+
 }

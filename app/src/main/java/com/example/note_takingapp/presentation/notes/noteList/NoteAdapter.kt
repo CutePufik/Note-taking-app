@@ -14,6 +14,9 @@ class NoteAdapter : ListAdapter<Note, NoteAdapter.NoteViewHolder>(NoteDiffCallba
 
     var onItemClick: ((Note) -> Unit)? = null
 
+    var onItemSwiped: ((Note) -> Unit)? = null
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val binding = NoteItemBinding.inflate(
             LayoutInflater.from(parent.context),

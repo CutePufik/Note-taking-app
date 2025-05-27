@@ -4,6 +4,7 @@ import com.example.note_takingapp.data.dto.FirestoreNote
 import com.example.note_takingapp.domain.Notes.model.Note
 import com.example.note_takingapp.domain.Notes.repository.NoteRepository
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
@@ -27,8 +28,16 @@ class NoteRepositoryImpl @Inject constructor(
     private val notesCollection = firestore.collection(NOTES_COLLECTION)
 
     override suspend fun addNote(note: Note): Result<String> {
+        val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+            ?: return Result.failure(Exception("User not authenticated"))
+
         return try {
-            val firestoreNote = FirestoreNote.fromDomain(note)
+            val firestoreNote = FirestoreNote(
+                title = note.title,
+                text = note.text,
+                createdAt = Timestamp.now(),
+                userId = currentUserId
+            )
             val docRef = notesCollection.add(firestoreNote).await()
             Result.success(docRef.id)
         } catch (e: Exception) {
@@ -36,7 +45,7 @@ class NoteRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteNote(noteId: Long): Result<Unit> {
+    override suspend fun deleteNote(noteId: String): Result<Unit> {
         return try {
             notesCollection.document(noteId.toString()).delete().await()
             Result.success(Unit)
