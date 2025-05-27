@@ -5,6 +5,7 @@ import com.example.note_takingapp.presentation.login.ui.login.LoginFragment
 import com.example.note_takingapp.presentation.login.ui.register.RegisterFragment
 import com.example.note_takingapp.presentation.notes.addNote.AddNoteFragment
 import com.example.note_takingapp.presentation.notes.noteList.NoteListFragment
+import com.example.note_takingapp.presentation.notes.updateNote.UpdateNoteFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -22,5 +23,7 @@ interface AppComponent {
     fun inject(fragment: NoteListFragment)
 
     fun inject(fragment: AddNoteFragment)
+
+    fun inject(fragment: UpdateNoteFragment)
 
 }

@@ -67,16 +67,23 @@ class NoteRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getNoteById(noteId: Long): Result<Note> {
+    override suspend fun getNoteById(noteId: String): Result<Note> {
         return try {
-            val snapshot = notesCollection.document(noteId.toString()).get().await()
-            val firestoreNote = snapshot.toObject<FirestoreNote>()
-                ?: return Result.failure(NoSuchElementException("Note not found"))
+            val snapshot = notesCollection.document(noteId).get().await()
+
+            if (!snapshot.exists()) {
+                return Result.failure(NoSuchElementException("Note with ID $noteId not found"))
+            }
+
+            val firestoreNote = snapshot.toObject(FirestoreNote::class.java)
+                ?: return Result.failure(IllegalStateException("Failed to parse note from Firestore"))
+
             Result.success(firestoreNote.toDomain())
         } catch (e: Exception) {
             Result.failure(e)
         }
     }
+
 
 
 

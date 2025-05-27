@@ -77,7 +77,10 @@ class NoteListFragment : Fragment() {
     private fun setupRecyclerView() {
         noteAdapter = NoteAdapter().apply {
             onItemClick = { note ->
-                // Обработка клика по заметке (например, открыть детали)
+                val bundle = Bundle()
+                bundle.putString("id", note.id)
+                findNavController().navigate(R.id.action_noteListFragment_to_updateNoteFragment, bundle)
+
             }
             onItemSwiped = { note ->
                 viewModel.deleteNote(note.id.toString())
@@ -101,16 +104,15 @@ class NoteListFragment : Fragment() {
             }
         }
 
-
     }
 
     private fun setupClickListeners() {
         binding.fabAddNote.setOnClickListener {
-            // Открыть экран создания заметки
+           findNavController().navigate(R.id.action_noteListFragment_to_addNoteFragment)
         }
 
         noteAdapter.onItemSwiped = { note ->
-            viewModel.deleteNote(note.id.toString()) 
+            viewModel.deleteNote(note.id.toString())
         }
     }
 

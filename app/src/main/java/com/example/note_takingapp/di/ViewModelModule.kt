@@ -6,6 +6,7 @@ import com.example.note_takingapp.presentation.login.ui.viewModels.ForgetPasswor
 import com.example.note_takingapp.presentation.login.ui.viewModels.LoginViewModel
 import com.example.note_takingapp.presentation.login.ui.viewModels.RegisterViewModel
 import com.example.note_takingapp.presentation.notes.noteList.NoteListViewModel
+import com.example.note_takingapp.presentation.notes.updateNote.UpdateNoteViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -38,5 +39,10 @@ interface ViewModelModule {
     @Binds
     fun bindAddNoteViewModel(impl: AddNoteViewModel): ViewModel
 
+
+    @IntoMap
+    @ViewModelKey(UpdateNoteViewModel::class)
+    @Binds
+    fun bindUpdateNoteViewModel(impl: UpdateNoteViewModel): ViewModel
 
 }
